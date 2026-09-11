@@ -1,0 +1,71 @@
+{% load static %}
+<header class="bg-white shadow-sm sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+
+      <!-- Logo -->
+      <a href="{% url 'shelf:index' %}" class="flex items-center gap-2 shrink-0">
+        <img src="{% static 'images/logo.png' %}" alt="Logo" class="h-9 w-9 object-contain">
+        <span class="text-xl font-bold text-gray-900">Bookshelf</span>
+      </a>
+
+      <!-- Desktop nav -->
+      <nav class="hidden md:flex items-center gap-1">
+        <a href="{% url 'shelf:index' %}" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900">Home</a>
+        <a href="{% url 'shelf:books' %}" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900">Books</a>
+        <a href="{% url 'shelf:add_book' %}" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900">Add Book</a>
+
+        {% if user.is_authenticated %}
+          <div class="ml-3 pl-3 border-l border-gray-200 flex items-center gap-1">
+            <a href="{% url 'account:profile' %}" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900">Profile</a>
+            <a href="{% url 'account:logout' %}" class="px-3 py-2 rounded-md text-sm font-medium bg-gray-900 text-white hover:bg-gray-700">Logout</a>
+          </div>
+        {% else %}
+          <div class="ml-3 pl-3 border-l border-gray-200 flex items-center gap-1">
+            <a href="{% url 'account:login' %}" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900">Login</a>
+            <a href="{% url 'account:register' %}" class="px-3 py-2 rounded-md text-sm font-medium bg-gray-900 text-white hover:bg-gray-700">Register</a>
+          </div>
+        {% endif %}
+      </nav>
+
+      <!-- Mobile toggle button -->
+      <button
+        id="nav-toggle"
+        type="button"
+        aria-controls="mobile-menu"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+        class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-300">
+        <!-- Hamburger icon -->
+        <svg id="icon-open" class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+        <!-- Close icon -->
+        <svg id="icon-close" class="h-6 w-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <nav id="mobile-menu" class="md:hidden hidden border-t border-gray-200 bg-white">
+    <div class="px-4 py-3 space-y-1">
+      <a href="{% url 'shelf:index' %}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100">Home</a>
+      <a href="{% url 'shelf:books' %}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100">Books</a>
+      <a href="{% url 'shelf:add_book' %}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100">Add Book</a>
+
+      {% if user.is_authenticated %}
+        <div class="pt-3 mt-3 border-t border-gray-200 space-y-1">
+          <a href="{% url 'account:profile' %}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100">Profile</a>
+          <a href="{% url 'account:logout' %}" class="block px-3 py-2 rounded-md text-base font-medium bg-gray-900 text-white hover:bg-gray-700">Logout</a>
+        </div>
+      {% else %}
+        <div class="pt-3 mt-3 border-t border-gray-200 space-y-1">
+          <a href="{% url 'account:login' %}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100">Login</a>
+          <a href="{% url 'account:register' %}" class="block px-3 py-2 rounded-md text-base font-medium bg-gray-900 text-white hover:bg-gray-700">Register</a>
+        </div>
+      {% endif %}
+    </div>
+  </nav>
+</header>

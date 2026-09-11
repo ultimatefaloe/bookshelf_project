@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+  <h1>Profile</h1>
+  <div>
+    <p><strong>Username:</strong>name: John Doe</p>
+    <p><strong>Email:</strong>email: ultimateintelliforge@gmail.com</p>
+  </div>
+  <a href="{% url 'account:logout' %}" class="text-blue-500 hover:underline">Logout</a>
+{% endblock %}
