@@ -1,0 +1,47 @@
+{% load static %}
+<article class="group bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition overflow-hidden flex flex-col">
+  <div class="aspect-[3/4] bg-gray-50 flex items-center justify-center overflow-hidden">
+    {% if book.cover %}
+      <img src="{{ book.cover.url }}" alt="{{ book.title }} cover"
+           class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+    {% else %}
+      <img src="{% static 'images/book_placeholder.png' %}" alt="Book cover"
+           class="w-2/3 h-2/3 object-contain opacity-70">
+    {% endif %}
+  </div>
+
+  <div class="p-4 flex flex-col flex-1">
+    <h2 class="font-semibold text-gray-900 line-clamp-2 mb-1">{{ book.title }}</h2>
+    <p class="text-sm text-gray-500 mb-2">{{ book.author }}</p>
+
+    <p class="text-xs text-gray-500 line-clamp-2 mb-3 flex-1">
+      {{ book.description|default:"No description."|truncatechars:80 }}
+    </p>
+
+    <div class="flex items-center gap-2 mb-3">
+      <span class="inline-block text-xs px-2 py-0.5 rounded-full
+        {% if book.status == 'read' %}bg-emerald-50 text-emerald-700
+        {% elif book.status == 'reading' %}bg-sky-50 text-sky-700
+        {% else %}bg-amber-50 text-amber-700{% endif %}">
+        {{ book.get_status_display }}
+      </span>
+      <span class="text-xs text-gray-400">· {{ book.created_at|timesince }} ago</span>
+    </div>
+
+    <div class="flex items-center gap-2 mt-auto">
+      <a href="{% url 'shelf:book_detail' book.id %}"
+         class="flex-1 text-center rounded-lg bg-gray-900 text-white text-sm py-2 font-medium hover:bg-gray-700 transition">
+        Details
+      </a>
+      <a href="{% url 'shelf:edit_book' book.id %}"
+         class="rounded-lg border border-gray-200 text-gray-700 text-sm px-3 py-2 hover:bg-gray-50 transition">
+        Edit
+      </a>
+      <button type="button"
+              onclick="openDeleteModal({{ book.id }}, '{{ book.title|escapejs }}')"
+              class="rounded-lg border border-rose-200 text-rose-600 text-sm px-3 py-2 hover:bg-rose-50 transition">
+        Delete
+      </button>
+    </div>
+  </div>
+</article>

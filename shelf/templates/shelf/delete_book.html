@@ -2,17 +2,21 @@
 {% block title %}Delete Book{% endblock %}
 
 {% block content %}
+<div class="max-w-md mx-auto bg-white rounded-2xl border border-gray-100 shadow-sm p-6 text-center">
+  <div class="h-14 w-14 mx-auto rounded-full bg-rose-50 text-rose-600 flex items-center justify-center text-2xl mb-4">⚠️</div>
+  <h1 class="text-lg font-semibold text-gray-900 mb-1">Delete this book?</h1>
+  <p class="text-sm text-gray-500 mb-6">This action can't be undone.</p>
 
-<h1>
-  This is book shelf delete book page. You can delete an existing book from your
-  collection.
-</h1>
-
-<form method="post">
-  <label for="title">Title:</label>
-  <input type="text" id="title" name="title" required />
-
-  <button type="submit">Delete Book</button>
-</form>
-
+  <form method="post" class="flex items-center justify-center gap-2">
+    {% csrf_token %}
+    <a href="{% url 'shelf:books' %}"
+       class="rounded-lg border border-gray-200 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
+      Cancel
+    </a>
+    <button type="submit"
+            class="rounded-lg bg-rose-600 text-white px-4 py-2 text-sm font-medium hover:bg-rose-700">
+      Yes, delete
+    </button>
+  </form>
+</div>
 {% endblock %}

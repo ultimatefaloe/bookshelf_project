@@ -2,22 +2,10 @@
 {% block title %}Edit Book{% endblock %}
 
 {% block content %}
+<div class="mb-6">
+  <h1 class="text-2xl font-bold text-gray-900">Edit book</h1>
+  <p class="text-sm text-gray-500">Update the details and save your changes.</p>
+</div>
 
-<h1>
-  This is book shelf edit book page. You can edit an existing book in your collection.
-</h1>
-
-  <form method="post">
-    <label for="title">Title:</label>
-    <input type="text" id="title" name="title" required>
-
-    <label for="author">Author:</label>
-    <input type="text" id="author" name="author" required>
-
-    <label for="description">Description:</label>
-    <textarea id="description" name="description"></textarea>
-
-    <button type="submit">Edit Book</button>
-  </form>
-
+{% include "components/form.html" with book=book statuses=statuses %}
 {% endblock %}

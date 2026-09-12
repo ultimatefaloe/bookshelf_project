@@ -2,22 +2,10 @@
 {% block title %}Add Book{% endblock %}
 
 {% block content %}
+<div class="mb-6">
+  <h1 class="text-2xl font-bold text-gray-900">Add a new book</h1>
+  <p class="text-sm text-gray-500">Fill in the details below to add it to your shelf.</p>
+</div>
 
-<h1>
-  This is book shelf add book page. You can add a new book to your collection.
-</h1>
-
-  <form method="post">
-    <label for="title">Title:</label>
-    <input type="text" id="title" name="title" required>
-
-    <label for="author">Author:</label>
-    <input type="text" id="author" name="author" required>
-
-    <label for="description">Description:</label>
-    <textarea id="description" name="description"></textarea>
-
-    <button type="submit">Add Book</button>
-  </form>
-
+{% include "components/form.html" with statuses=statuses %}
 {% endblock %}

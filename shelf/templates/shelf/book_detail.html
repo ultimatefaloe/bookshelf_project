@@ -1,9 +1,79 @@
 {% extends "layout.html" %}
-{% block title %}Book Detail{% endblock %}
+{% load static %}
+{% block title %}{{ book.title }}{% endblock %}
 
 {% block content %}
-<h1>
-  This is book shelf book detail page. You can view the details of a specific book in your collection.
-</h1>
+
+<a href="{% url 'shelf:books' %}" class="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-gray-900 mb-4">
+  ← Back to Books
+</a>
+
+<article class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 p-6">
+
+    <!-- Cover -->
+    <div class="md:col-span-1">
+      <div class="aspect-[3/4] bg-gray-50 rounded-xl overflow-hidden flex items-center justify-center">
+        {% if book.cover %}
+          <img src="{{ book.cover.url }}" alt="{{ book.title }} cover" class="w-full h-full object-cover">
+        {% else %}
+          <img src="{% static 'images/book_placeholder.png' %}" alt="Book cover"
+               class="w-2/3 h-2/3 object-contain opacity-70">
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Info -->
+    <div class="md:col-span-2 flex flex-col">
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">{{ book.title }}</h1>
+      <p class="text-gray-600 mb-4">by <span class="font-medium">{{ book.author }}</span></p>
+
+      <span class="inline-block w-fit text-xs px-2.5 py-1 rounded-full mb-5
+        {% if book.status == 'read' %}bg-emerald-50 text-emerald-700
+        {% elif book.status == 'reading' %}bg-sky-50 text-sky-700
+        {% else %}bg-amber-50 text-amber-700{% endif %}">
+        {{ book.get_status_display }}
+      </span>
+
+      <dl class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 text-sm mb-6">
+        <div>
+          <dt class="text-gray-500">ISBN</dt>
+          <dd class="text-gray-900">{{ book.isbn|yesno:"Yes,No" }}</dd>
+        </div>
+        {% if book.isbn_number %}
+        <div>
+          <dt class="text-gray-500">ISBN Number</dt>
+          <dd class="text-gray-900">{{ book.isbn_number }}</dd>
+        </div>
+        {% endif %}
+        <div>
+          <dt class="text-gray-500">Added</dt>
+          <dd class="text-gray-900">{{ book.created_at|date:"F j, Y" }}</dd>
+        </div>
+      </dl>
+
+      <div>
+        <h2 class="text-sm font-semibold text-gray-700 mb-1">Description</h2>
+        <p class="text-gray-600 whitespace-pre-line">{{ book.description|default:"No description provided." }}</p>
+      </div>
+
+      {% if request.user.is_authenticated %}
+      <div class="flex items-center gap-2 mt-6 pt-6 border-t border-gray-100">
+        <a href="{% url 'shelf:edit_book' book.id %}"
+           class="rounded-lg bg-gray-900 text-white px-4 py-2 text-sm font-medium hover:bg-gray-700 transition">
+          Edit
+        </a>
+        <button type="button"
+                onclick="openDeleteModal({{ book.id }}, '{{ book.title|escapejs }}')"
+                class="rounded-lg border border-rose-200 text-rose-600 px-4 py-2 text-sm font-medium hover:bg-rose-50 transition">
+          Delete
+        </button>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</article>
+
+{% include "components/delete_modal.html" %}
 
 {% endblock %}

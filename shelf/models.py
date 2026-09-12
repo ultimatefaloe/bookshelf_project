@@ -15,6 +15,8 @@ class Book(models.Model):
   description= models.TextField()
   cover= models.ImageField(upload_to='book_covers/', blank=True, null=True)
   status= models.CharField(max_length=10, choices=STATUS_CHOICES, default='want')
+  isbn= models.BooleanField(default=False)
+  isbn_number= models.CharField(max_length=13, blank=True, null=True)
   # owner = models.ForeignKey(User, on_delete=models.CASCADE) # this function of cascade is to delete the book if the user is deleted
   created_at= models.DateTimeField(auto_now_add=True)
   updated_at= models.DateTimeField(auto_now=True)

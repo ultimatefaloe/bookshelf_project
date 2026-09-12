@@ -32,7 +32,12 @@
 
   {% include "footer.html" %}
 
-  <script src="{% static 'js/script.js' %}"></script>
+<script>
+  window.URLS = {
+    deleteBook: "{% url 'shelf:delete_book' 0 %}"
+  };
+</script>
+<script src="{% static 'js/script.js' %}"></script>
   {% block extra_js %}{% endblock %}
 </body>
 </html>

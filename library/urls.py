@@ -16,13 +16,15 @@ Including another URLconf
 """
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from library import settings
 from account import urls as account_urls
 from shelf import urls as shelf_urls
+from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(shelf_urls, namespace='shelf')),
     path('account/', include(account_urls, namespace='account')),
+    # re_path(r'^.*$', views.not_found),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
