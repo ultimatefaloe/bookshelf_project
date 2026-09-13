@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block title %}Access Denied{% endblock %}
+
+{% block content %}
+<div class="min-h-[70vh] flex items-center justify-center py-12">
+  <div class="text-center max-w-lg">
+
+    <div class="text-7xl sm:text-8xl font-black text-gray-900 mb-2 tracking-tight">403</div>
+
+    <div class="text-5xl mb-6">🔒</div>
+
+    <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">
+      You don't have access to this page
+    </h1>
+
+    <p class="text-gray-500 mb-8">
+      This area is restricted. You may need to log in with a different account,
+      or you may not have permission to view what you were looking for.
+    </p>
+
+    <div class="flex flex-wrap items-center justify-center gap-3">
+      {% if not user.is_authenticated %}
+        <a href="{% url 'account:login' %}?next={{ request.path|urlencode }}"
+           class="inline-flex items-center rounded-lg bg-indigo-600 text-white px-5 py-2.5 text-sm font-semibold hover:bg-indigo-700 transition">
+          Log in
+        </a>
+      {% endif %}
+      <a href="{% url 'shelf:index' %}"
+         class="inline-flex items-center rounded-lg bg-gray-900 text-white px-5 py-2.5 text-sm font-medium hover:bg-gray-700 transition">
+        ← Back to Home
+      </a>
+      <a href="{% url 'shelf:books' %}"
+         class="inline-flex items-center rounded-lg border border-gray-200 text-gray-700 px-5 py-2.5 text-sm font-medium hover:bg-gray-50 transition">
+        Browse Books
+      </a>
+    </div>
+
+    <p class="text-xs text-gray-400 mt-8">
+      Think this is a mistake?
+      <a href="{% url 'shelf:index' %}" class="text-indigo-600 hover:underline">Let us know</a>.
+    </p>
+  </div>
+</div>
+{% endblock %}

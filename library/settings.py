@@ -26,6 +26,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
+LOGIN_URL = 'account:login'
+LOGIN_REDIRECT_URL = 'shelf:index'
+LOGOUT_REDIRECT_URL = 'account:login'
 
 # Application definition
 
@@ -131,5 +134,6 @@ MEDIA_ROOT = BASE_DIR / 'media'
 MAILERS = {
     'default': {
         'BACKEND': 'django.core.mail.backends.console.EmailBackend',
+        'DEFAULT_FROM_EMAIL': 'noreply@bookshelf.local',
     },
 }

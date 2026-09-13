@@ -58,10 +58,10 @@
 
   // Build the delete URL. Adjust the template if your URL differs.
   // const deleteUrlTemplate = "{% url 'shelf:delete_book' 0 %}"; // 0 is a placeholder pk
-  const deleteUrlTemplate = window.URLS?.deleteBook || "";
+  // const deleteUrlTemplate = window.URLS?.deleteBook || "";
 
   window.openDeleteModal = function (bookId, bookTitle) {
-    form.action = deleteUrlTemplate.replace(/0\/?$/, bookId + "/");
+    // form.action = deleteUrlTemplate.replace(/0\/?$/, bookId + "/");
     if (titleEl)
       titleEl.textContent = bookTitle ? `"${bookTitle}"` : "this book";
 
@@ -81,5 +81,26 @@
     if (e.key === "Escape" && !modal.classList.contains("hidden")) {
       window.closeDeleteModal();
     }
+  });
+})();
+
+
+/* =========================================================
+   Password visibility toggle
+   ========================================================= */
+(function () {
+  document.querySelectorAll('[data-toggle-password]').forEach((btn) => {
+    btn.addEventListener('click', function () {
+      const input = document.getElementById(this.dataset.togglePassword);
+      if (!input) return;
+
+      const show = input.type === 'password';
+      input.type = show ? 'text' : 'password';
+
+      const openIcon = this.querySelector('.eye-open');
+      const closedIcon = this.querySelector('.eye-closed');
+      openIcon?.classList.toggle('hidden', show);
+      closedIcon?.classList.toggle('hidden', !show);
+    });
   });
 })();

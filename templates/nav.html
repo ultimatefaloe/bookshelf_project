@@ -16,7 +16,8 @@
         <a href="{% url 'shelf:add_book' %}" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900">Add Book</a>
 
         {% if user.is_authenticated %}
-          <div class="ml-3 pl-3 border-l border-gray-200 flex items-center gap-1">
+        <div class="ml-3 pl-3 border-l border-gray-200 flex items-center gap-1">
+            <p>Welcome back, {{ user.username }}</p>
             <a href="{% url 'account:profile' %}" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900">Profile</a>
             <a href="{% url 'account:logout' %}" class="px-3 py-2 rounded-md text-sm font-medium bg-gray-900 text-white hover:bg-gray-700">Logout</a>
           </div>

@@ -12,13 +12,14 @@
       <div class="flex-1">
         <h3 class="text-lg font-semibold text-gray-900 mb-1">Delete book?</h3>
         <p class="text-sm text-gray-500">
-          You're about to delete <span id="delete-modal-title" class="font-medium text-gray-700"></span>.
+          You're about to delete <span id="delete-modal-title" class="font-medium text-gray-700">{{ book_title }}</span>.
           This action can't be undone.
         </p>
       </div>
     </div>
 
-    <form id="delete-form" method="post" action="">
+    {% if book_id %}
+    <form id="delete-form" method="post" action="{{ book_id|default:''|add:'/'|add:'delete/' }}">
       {% csrf_token %}
       <div class="mt-6 flex items-center justify-end gap-2">
         <button type="button" onclick="closeDeleteModal()"
@@ -31,5 +32,10 @@
         </button>
       </div>
     </form>
+    {% else %}
+      <p class="text-sm text-gray-500">
+        Could not create delete form.
+      </p>
+    {% endif %}
   </div>
 </div>
